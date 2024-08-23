@@ -8,6 +8,7 @@ public class Vertice <T>{
     private ArrayList<Aresta<T>> arestasSaida;
 
 
+
     public Vertice (T valor){
         this.dado = valor;
         this.arestasEntrada = new ArrayList<Aresta<T>>();

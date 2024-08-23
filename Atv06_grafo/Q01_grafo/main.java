@@ -1,8 +1,10 @@
 package Q01_grafo;
 
+import java.util.ArrayList;
+
 public class main {
     public static void main(String[] args) {
-        Grafo<String> grafo = new Grafo<>();//usando string só pra testar 
+        Grafo<String> grafo = new Grafo<>();//usando string só pra testar
         // adc vertices
         grafo.adicionarVertice("A");
         grafo.adicionarVertice("B");
@@ -22,7 +24,6 @@ public class main {
 
         System.out.println("\nGrafo após remoções:");
         grafo.imprimir();
-
 
     }
 }

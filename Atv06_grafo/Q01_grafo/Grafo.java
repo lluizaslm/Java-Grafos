@@ -5,10 +5,17 @@ import java.util.ArrayList;
 public class Grafo<T> {
     private ArrayList<Vertice<T>> vertices;
     private ArrayList<Aresta<T>> arestas;
+    private boolean direcionado;//criado pra diferencia se é direcionado ou nao
 
-    public Grafo() {
+
+    public Grafo(){
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
+    }
+    public Grafo(boolean direcionado) {
+        this.vertices = new ArrayList<>();
+        this.arestas = new ArrayList<>();
+        this.direcionado = direcionado;
     }
 
     // adicionar vértice
@@ -32,6 +39,7 @@ public class Grafo<T> {
         //adc aresta ao contrario tb, por conta do grafo não direcional que é bidirecional A->B||B->A
 
     }
+
 
     public void removerVertice(T dado) {
         Vertice<T> vertice =buscarVertice(dado);
@@ -94,10 +102,32 @@ public class Grafo<T> {
     }
 
 
+    public ArrayList<Vertice<T>> obterAdjacentes(T dado){
+        Vertice<T> vertice =buscarVertice(dado);
+        ArrayList<Vertice<T>> adjacentes =new ArrayList<>();
+        if(vertice!= null){
+            for(Aresta<T> aresta : vertice.getArestasSaida()){
+                adjacentes.add(aresta.getFim());
+            }
+        }
+        return adjacentes;
+    }
+
+
 
     public void imprimir() {
         for (Vertice<T> vertice : vertices) {
             System.out.print("Vértice " + vertice.getDado() + " -> ");
+            ArrayList<Vertice<T>> adjacentes = obterAdjacentes(vertice.getDado());
+            if (adjacentes.isEmpty()) {
+                System.out.print("Sem adjacentes");
+            } else {
+                System.out.print("Adjacentes -> ");
+                for (Vertice<T> adjacente : adjacentes) {
+                    System.out.print(adjacente.getDado() + " ");
+                }
+            }
+            System.out.println();
         }
         System.out.println("\nArestas:");
         for (Aresta<T> aresta : arestas) {
@@ -106,7 +136,4 @@ public class Grafo<T> {
 
     }
 
-    // obter adjacentes de um vértice e imprimir (apresenta cada
-    //vértice seguido dos seus adjacentes)
-    //falta isso tbm
 }
