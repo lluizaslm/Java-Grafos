@@ -5,17 +5,12 @@ import java.util.ArrayList;
 public class Grafo<T> {
     private ArrayList<Vertice<T>> vertices;
     private ArrayList<Aresta<T>> arestas;
-    private boolean direcionado;//criado pra diferencia se é direcionado ou nao
+
 
 
     public Grafo(){
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
-    }
-    public Grafo(boolean direcionado) {
-        this.vertices = new ArrayList<>();
-        this.arestas = new ArrayList<>();
-        this.direcionado = direcionado;
     }
 
     // adicionar vértice
@@ -31,35 +26,30 @@ public class Grafo<T> {
 
         if (verticeInicio != null && verticeFim != null) {
             Aresta<T> aresta = new Aresta<>(peso, verticeInicio, verticeFim);
+
             arestas.add(aresta);
-            verticeInicio.adicionarArestaSaida(aresta);
-            verticeFim.adicionarArestaEntrada(aresta);
+            verticeInicio.adicionarAresta(aresta);
+            verticeFim.adicionarAresta(aresta);
         }
-
-        //adc aresta ao contrario tb, por conta do grafo não direcional que é bidirecional A->B||B->A
-
     }
-
 
     public void removerVertice(T dado) {
         Vertice<T> vertice =buscarVertice(dado);
         if(vertice!=null){
 
-            ArrayList<Aresta<T>> arestasAssociadas =new ArrayList<>(vertice.getArestasEntrada());//aqui cria uma nova lista pra adc as arestas que vão ta associadas ao vertice
-            arestasAssociadas.addAll(vertice.getArestasSaida());
+            ArrayList<Aresta<T>> arestasAssociadas =new ArrayList<>(vertice.getArestas());//aqui cria uma nova lista pra adc as arestas que vão ta associadas ao vertice
             for(Aresta<T> aresta :arestasAssociadas){
-                Vertice<T> verticeInicio =aresta.getInicio();
-                Vertice<T> verticeFim =aresta.getFim();
-                verticeInicio.getArestasSaida().remove(aresta);//pra pegar o vertice que a aresta ta saindo
-                verticeFim.getArestasEntrada().remove(aresta);//e aqui o vertice que aresta ta chegando
+                Vertice<T> verticeInicio = aresta.getInicio();
+                Vertice<T> verticeFim = aresta.getFim();
+                verticeInicio.getArestas().remove(aresta);//pra pegar o vertice que a aresta ta saindo
+                verticeFim.getArestas().remove(aresta);//e aqui o vertice que aresta ta chegando
 
-                arestas.remove(arestas);//pra remover as arestas
+                arestas.remove(aresta);//pra remover as arestas
             }
             vertices.remove(vertice);
         }
     }
 
-    //so ta grafo direcionado
     public void removerAresta(T inicio, T fim) {
         Vertice<T> verticeInicio=buscarVertice(inicio);
         Vertice<T> verticeFim = buscarVertice(fim);
@@ -68,14 +58,13 @@ public class Grafo<T> {
             Aresta<T> aresta = buscarAresta(inicio, fim);
             if(aresta != null){
                 arestas.remove(aresta);
-                verticeInicio.getArestasSaida().remove(aresta);//remover a aresta que ta saindo do vertice de inicio
-                verticeFim.getArestasEntrada().remove(aresta);//remover a aresta que ta entrando do vertice "final"
+                verticeInicio.getArestas().remove(aresta);//remover a aresta que ta saindo do vertice de inicio
+                verticeFim.getArestas().remove(aresta);//remover a aresta que ta entrando do vertice "final"
             }
 
         }
     }
 
-    //so ta grafo direcionado
     public Aresta<T> buscarAresta(T inicio, T fim){
         Vertice<T> verticeInicio=buscarVertice(inicio);
         Vertice<T> verticeFim = buscarVertice(fim);
@@ -90,8 +79,6 @@ public class Grafo<T> {
         return null;
     }
 
-
-    // buscar o vertice
     private Vertice<T> buscarVertice(T dado) {
         for (Vertice<T> vertice : vertices) {
             if (vertice.getDado().equals(dado)) {
@@ -101,19 +88,16 @@ public class Grafo<T> {
         return null;
     }
 
-
     public ArrayList<Vertice<T>> obterAdjacentes(T dado){
         Vertice<T> vertice =buscarVertice(dado);
         ArrayList<Vertice<T>> adjacentes =new ArrayList<>();
         if(vertice!= null){
-            for(Aresta<T> aresta : vertice.getArestasSaida()){
+            for(Aresta<T> aresta : vertice.getArestas()){
                 adjacentes.add(aresta.getFim());
             }
         }
         return adjacentes;
     }
-
-
 
     public void imprimir() {
         for (Vertice<T> vertice : vertices) {

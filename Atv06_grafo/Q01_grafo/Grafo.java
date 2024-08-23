@@ -53,7 +53,7 @@ public class Grafo<T> {
                 verticeInicio.getArestasSaida().remove(aresta);//pra pegar o vertice que a aresta ta saindo
                 verticeFim.getArestasEntrada().remove(aresta);//e aqui o vertice que aresta ta chegando
 
-                arestas.remove(arestas);//pra remover as arestas
+                arestas.remove(aresta);//pra remover as arestas
             }
             vertices.remove(vertice);
         }
