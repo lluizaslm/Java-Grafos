@@ -99,6 +99,10 @@ public class Grafo<T> {
         return adjacentes;
     }
 
+    public  void ArvorePrim(){}
+    public void ArvoreKruskal(){}
+    public void ArvoreBoruvka(){}
+
     public void imprimir() {
         for (Vertice<T> vertice : vertices) {
             System.out.print("Vértice " + vertice.getDado() + " -> ");
