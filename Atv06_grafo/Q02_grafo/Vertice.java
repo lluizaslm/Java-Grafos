@@ -1,0 +1,69 @@
+package Q02_grafo;
+
+
+import java.util.ArrayList;
+
+public class Vertice <T>{
+    private T dado;
+    private ArrayList<Aresta<T>> arestasEntrada;
+    private ArrayList<Aresta<T>> arestasSaida;
+    private boolean visitado; // pra ver se foi visitado
+    private int tempoChegada;
+    private int tempoPartida;
+
+    public Vertice (T valor){
+        this.dado = valor;
+        this.arestasEntrada = new ArrayList<Aresta<T>>();
+        this.arestasSaida = new ArrayList<Aresta<T>>();
+        this.visitado = false;
+    }
+
+    public T getDado() {
+        return dado;
+    }
+
+    public void setDado(T dado) {
+        this.dado = dado;
+    }
+
+    public void adicionarArestaEntrada(Aresta<T> aresta){
+        this.arestasEntrada.add(aresta);
+    }
+
+    public void adicionarArestaSaida(Aresta<T> aresta){
+        this.arestasSaida.add(aresta);
+    }
+
+    public ArrayList<Aresta<T>> getArestasEntrada() {
+        return arestasEntrada;
+    }
+
+    public ArrayList<Aresta<T>> getArestasSaida() {
+        return arestasSaida;
+    }
+
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
+    }
+
+    public int getTempoChegada() {
+        return tempoChegada;
+    }
+
+    public void setTempoChegada(int tempoChegada) {
+        this.tempoChegada = tempoChegada;
+    }
+
+    public int getTempoPartida() {
+        return tempoPartida;
+    }
+
+    public void setTempoPartida(int tempoPartida) {
+        this.tempoPartida = tempoPartida;
+    }
+
+}
