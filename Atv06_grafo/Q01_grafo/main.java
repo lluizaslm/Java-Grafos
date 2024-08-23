@@ -18,6 +18,11 @@ public class main {
         System.out.println("Grafo:");
         grafo.imprimir();
 
+        grafo.removerAresta("C", "D");
+
+        System.out.println("\nGrafo após remoções:");
+        grafo.imprimir();
+
 
     }
 }

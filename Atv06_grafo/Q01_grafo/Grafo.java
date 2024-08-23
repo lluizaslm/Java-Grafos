@@ -28,16 +28,60 @@ public class Grafo<T> {
             verticeInicio.adicionarArestaSaida(aresta);
             verticeFim.adicionarArestaEntrada(aresta);
         }
+
+        //adc aresta ao contrario tb, por conta do grafo não direcional que é bidirecional A->B||B->A
+
     }
 
     public void removerVertice(T dado) {
+        Vertice<T> vertice =buscarVertice(dado);
+        if(vertice!=null){
 
+            ArrayList<Aresta<T>> arestasAssociadas =new ArrayList<>(vertice.getArestasEntrada());//aqui cria uma nova lista pra adc as arestas que vão ta associadas ao vertice
+            arestasAssociadas.addAll(vertice.getArestasSaida());
+            for(Aresta<T> aresta :arestasAssociadas){
+                Vertice<T> verticeInicio =aresta.getInicio();
+                Vertice<T> verticeFim =aresta.getFim();
+                verticeInicio.getArestasSaida().remove(aresta);//pra pegar o vertice que a aresta ta saindo
+                verticeFim.getArestasEntrada().remove(aresta);//e aqui o vertice que aresta ta chegando
+
+                arestas.remove(arestas);//pra remover as arestas
+            }
+            vertices.remove(vertice);
+        }
     }
 
-
+    //so ta grafo direcionado
     public void removerAresta(T inicio, T fim) {
+        Vertice<T> verticeInicio=buscarVertice(inicio);
+        Vertice<T> verticeFim = buscarVertice(fim);
 
+        if(verticeInicio != null && verticeFim != null){
+            Aresta<T> aresta = buscarAresta(inicio, fim);
+            if(aresta != null){
+                arestas.remove(aresta);
+                verticeInicio.getArestasSaida().remove(aresta);//remover a aresta que ta saindo do vertice de inicio
+                verticeFim.getArestasEntrada().remove(aresta);//remover a aresta que ta entrando do vertice "final"
+            }
+
+        }
     }
+
+    //so ta grafo direcionado
+    public Aresta<T> buscarAresta(T inicio, T fim){
+        Vertice<T> verticeInicio=buscarVertice(inicio);
+        Vertice<T> verticeFim = buscarVertice(fim);
+
+        if(verticeInicio != null && verticeFim != null ){
+            for(Aresta<T> aresta :arestas){
+                if(aresta.getInicio().equals(verticeInicio) && aresta.getFim().equals(verticeFim)){
+                    return aresta;
+                }
+            }
+        }
+        return null;
+    }
+
 
     // buscar o vertice
     private Vertice<T> buscarVertice(T dado) {
@@ -49,7 +93,7 @@ public class Grafo<T> {
         return null;
     }
 
-    // adc a de buscar aresta
+
 
     public void imprimir() {
         for (Vertice<T> vertice : vertices) {
