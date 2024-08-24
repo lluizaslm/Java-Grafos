@@ -1,6 +1,8 @@
 package Q05_grafo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class Grafo5<T> {
@@ -145,7 +147,30 @@ public class Grafo5<T> {
         }
         System.out.println("Peso total da Arvore Prim: " + pesoTotal);
     }
-    public void ArvoreKruskal(){}
+    public void ArvoreKruskal(){
+        Collections.sort(arestas);
+        var uf = new UnionFind(vertices.size());
+        var resultado = new ArrayList<Aresta5<T>>();
+
+        for (var aresta : arestas){
+            var inicio = aresta.getInicio();
+            var fim = aresta.getFim();
+
+            var indiceInicio = vertices.indexOf(inicio);
+            var indiceFim = vertices.indexOf(fim);
+
+            if (uf.find(indiceInicio) != uf.find(indiceFim)){
+                resultado.add(aresta);
+                uf.union(indiceInicio, indiceFim);
+            }
+        }
+        double pesoTotal = 0;
+        for (var arestaDaArvore : resultado){
+            System.out.println("Aresta: " + arestaDaArvore.getInicio().getDado() + " - " + arestaDaArvore.getFim().getDado() + " com peso: " + arestaDaArvore.getPeso());
+            pesoTotal += arestaDaArvore.getPeso();
+        }
+        System.out.println("Peso total da Arvore Kruskal: " + pesoTotal);
+    }
     public void ArvoreBoruvka(){}
 
     public void imprimir() {
