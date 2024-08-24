@@ -1,6 +1,7 @@
 package Q05_grafo;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Grafo5<T> {
     private ArrayList<Vertice5<T>> vertices;
@@ -26,10 +27,11 @@ public class Grafo5<T> {
 
         if (verticeInicio != null && verticeFim != null) {
             Aresta5<T> aresta = new Aresta5<>(peso, verticeInicio, verticeFim);
+            Aresta5<T> aresta2 = new Aresta5<>(peso, verticeFim, verticeInicio);
 
             arestas.add(aresta);
             verticeInicio.adicionarAresta(aresta);
-            verticeFim.adicionarAresta(aresta);
+            verticeFim.adicionarAresta(aresta2);
         }
     }
 
@@ -99,7 +101,50 @@ public class Grafo5<T> {
         return adjacentes;
     }
 
-    public  void ArvorePrim(){}
+    public  void ArvorePrim(){
+        var naArvore = new boolean[vertices.size()];
+        var pilha = new PriorityQueue<Aresta5<T>>();
+        var resultado = new ArrayList<Aresta5<T>>();
+
+        naArvore[0] = true;;
+        pilha.addAll(vertices.get(0).getArestas());
+
+        while (!pilha.isEmpty()){
+            var aresta = pilha.poll();
+            int posicaoDestino = 0;
+            for (int i = 0; i < vertices.size(); i++) {
+                if (vertices.get(i).equals(aresta.getFim())){
+                    posicaoDestino = i;
+                    break;
+                }
+            }
+            if(naArvore[posicaoDestino]){
+                continue;
+            }
+
+            naArvore[posicaoDestino] = true;
+            resultado.add(aresta);
+            var novasArestas = vertices.get(posicaoDestino).getArestas();
+            for (var adj : novasArestas){
+                for (int i = 0; i < vertices.size(); i++) {
+                    if (vertices.get(i).equals(adj.getFim())){
+                        posicaoDestino = i;
+                        break;
+                    }
+                }
+                if (!naArvore[posicaoDestino]){
+                    pilha.add(adj);
+                }
+            }
+        }
+
+        int pesoTotal = 0;
+        for (var aresta : resultado){
+            System.out.println("Aresta: " + aresta.getInicio().getDado() + " - " + aresta.getFim().getDado() + " com peso: " + aresta.getPeso());
+            pesoTotal += aresta.getPeso();
+        }
+        System.out.println("Peso total da Arvore Prim: " + pesoTotal);
+    }
     public void ArvoreKruskal(){}
     public void ArvoreBoruvka(){}
 

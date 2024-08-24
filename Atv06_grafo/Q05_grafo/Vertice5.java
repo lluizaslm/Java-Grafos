@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Vertice5<T>{
     private T dado;
     private ArrayList<Aresta5<T>> arestas;
-
     public Vertice5(T valor){
         this.dado = valor;
         this.arestas = new ArrayList<Aresta5<T>>();
@@ -23,6 +22,4 @@ public class Vertice5<T>{
     public void setDado(T dado) {
         this.dado = dado;
     }
-
-
 }

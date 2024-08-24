@@ -1,6 +1,6 @@
 package Q05_grafo;
 
-public class Aresta5<T>{
+public class Aresta5<T> implements Comparable<Aresta5<T>>{
     private Double peso;
     private Vertice5<T> inicio;
     private Vertice5<T> fim;
@@ -34,5 +34,10 @@ public class Aresta5<T>{
 
     public void setFim(Vertice5<T> fim) {
         this.fim = fim;
+    }
+
+    @Override
+    public int compareTo(Aresta5<T> o) {
+        return (int)(this.peso - o.peso);
     }
 }
