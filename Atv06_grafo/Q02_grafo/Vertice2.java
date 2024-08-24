@@ -3,18 +3,18 @@ package Q02_grafo;
 
 import java.util.ArrayList;
 
-public class Vertice <T>{
+public class Vertice2<T>{
     private T dado;
-    private ArrayList<Aresta<T>> arestasEntrada;
-    private ArrayList<Aresta<T>> arestasSaida;
+    private ArrayList<Aresta2<T>> arestasEntrada;
+    private ArrayList<Aresta2<T>> arestasSaida;
     private boolean visitado; // pra ver se foi visitado
     private int tempoChegada;
     private int tempoPartida;
 
-    public Vertice (T valor){
+    public Vertice2(T valor){
         this.dado = valor;
-        this.arestasEntrada = new ArrayList<Aresta<T>>();
-        this.arestasSaida = new ArrayList<Aresta<T>>();
+        this.arestasEntrada = new ArrayList<Aresta2<T>>();
+        this.arestasSaida = new ArrayList<Aresta2<T>>();
         this.visitado = false;
     }
 
@@ -26,19 +26,19 @@ public class Vertice <T>{
         this.dado = dado;
     }
 
-    public void adicionarArestaEntrada(Aresta<T> aresta){
+    public void adicionarArestaEntrada(Aresta2<T> aresta){
         this.arestasEntrada.add(aresta);
     }
 
-    public void adicionarArestaSaida(Aresta<T> aresta){
+    public void adicionarArestaSaida(Aresta2<T> aresta){
         this.arestasSaida.add(aresta);
     }
 
-    public ArrayList<Aresta<T>> getArestasEntrada() {
+    public ArrayList<Aresta2<T>> getArestasEntrada() {
         return arestasEntrada;
     }
 
-    public ArrayList<Aresta<T>> getArestasSaida() {
+    public ArrayList<Aresta2<T>> getArestasSaida() {
         return arestasSaida;
     }
 

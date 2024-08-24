@@ -1,14 +1,12 @@
-package Q02_grafo;
+package Q03_grafo;
 
-public class Aresta <T>{
+public class Aresta3<T>{
     private Double peso;
-    private Vertice<T> inicio;
-    private Vertice<T> fim;
+    private Vertice3<T> inicio;
+    private Vertice3<T> fim;
 
 
-
-
-    public Aresta(Double peso, Vertice<T> inicio, Vertice<T> fim){
+    public Aresta3(Double peso, Vertice3<T> inicio, Vertice3<T> fim){
         this.peso = peso;
         this.inicio = inicio;
         this.fim = fim;
@@ -21,19 +19,20 @@ public class Aresta <T>{
     public void setPeso(Double peso) {
         this.peso = peso;
     }
-    public Vertice<T> getInicio() {
+
+    public Vertice3<T> getInicio() {
         return inicio;
     }
 
-    public void setInicio(Vertice<T> inicio) {
+    public void setInicio(Vertice3<T> inicio) {
         this.inicio = inicio;
     }
 
-    public Vertice<T> getFim() {
+    public Vertice3<T> getFim() {
         return fim;
     }
 
-    public void setFim(Vertice<T> fim) {
+    public void setFim(Vertice3<T> fim) {
         this.fim = fim;
     }
 }

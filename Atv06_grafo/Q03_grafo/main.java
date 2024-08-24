@@ -2,7 +2,7 @@ package Q03_grafo;
 
 public class main {
     public static void main(String[] args) {
-        Grafo<Integer> grafo = new Grafo<>();
+        Grafo3<Integer> grafo = new Grafo3<>();
 
         grafo.adicionarVertice(5);
         grafo.adicionarVertice(4);

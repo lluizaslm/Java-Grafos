@@ -2,19 +2,19 @@ package Q05_grafo;
 
 import java.util.ArrayList;
 
-public class Vertice <T>{
+public class Vertice5<T>{
     private T dado;
-    private ArrayList<Aresta<T>> arestas;
+    private ArrayList<Aresta5<T>> arestas;
 
-    public Vertice (T valor){
+    public Vertice5(T valor){
         this.dado = valor;
-        this.arestas = new ArrayList<Aresta<T>>();
+        this.arestas = new ArrayList<Aresta5<T>>();
     }
-    public ArrayList<Aresta<T>> getArestas() {
+    public ArrayList<Aresta5<T>> getArestas() {
         return arestas;
     }
 
-    public  void adicionarAresta(Aresta<T> aresta){
+    public  void adicionarAresta(Aresta5<T> aresta){
         arestas.add(aresta);
     }
     public T getDado() {

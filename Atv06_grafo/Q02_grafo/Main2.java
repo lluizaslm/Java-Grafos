@@ -1,8 +1,8 @@
 package Q02_grafo;
 
-public class Main {
+public class Main2 {
     public static void main(String[] args) {
-        Grafo<String> grafo = new Grafo<>();
+        Grafo2<String> grafo = new Grafo2<>();
         // Adicionando vértices e arestas conforme exemplo anterior
         grafo.adicionarVertice("A");
         grafo.adicionarVertice("B");

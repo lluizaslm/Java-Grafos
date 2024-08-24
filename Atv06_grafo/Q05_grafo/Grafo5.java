@@ -2,30 +2,30 @@ package Q05_grafo;
 
 import java.util.ArrayList;
 
-public class Grafo<T> {
-    private ArrayList<Vertice<T>> vertices;
-    private ArrayList<Aresta<T>> arestas;
+public class Grafo5<T> {
+    private ArrayList<Vertice5<T>> vertices;
+    private ArrayList<Aresta5<T>> arestas;
 
 
 
-    public Grafo(){
+    public Grafo5(){
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
     }
 
     // adicionar vértice
     public void adicionarVertice(T dado) {
-        Vertice<T> novoVertice = new Vertice<T>(dado);
+        Vertice5<T> novoVertice = new Vertice5<T>(dado);
         this.vertices.add(novoVertice);
     }
 
     // adicionar aresta
     public void adicionarAresta(Double peso, T inicio, T fim) {
-        Vertice<T> verticeInicio = buscarVertice(inicio);
-        Vertice<T> verticeFim = buscarVertice(fim);
+        Vertice5<T> verticeInicio = buscarVertice(inicio);
+        Vertice5<T> verticeFim = buscarVertice(fim);
 
         if (verticeInicio != null && verticeFim != null) {
-            Aresta<T> aresta = new Aresta<>(peso, verticeInicio, verticeFim);
+            Aresta5<T> aresta = new Aresta5<>(peso, verticeInicio, verticeFim);
 
             arestas.add(aresta);
             verticeInicio.adicionarAresta(aresta);
@@ -34,13 +34,13 @@ public class Grafo<T> {
     }
 
     public void removerVertice(T dado) {
-        Vertice<T> vertice =buscarVertice(dado);
+        Vertice5<T> vertice =buscarVertice(dado);
         if(vertice!=null){
 
-            ArrayList<Aresta<T>> arestasAssociadas =new ArrayList<>(vertice.getArestas());//aqui cria uma nova lista pra adc as arestas que vão ta associadas ao vertice
-            for(Aresta<T> aresta :arestasAssociadas){
-                Vertice<T> verticeInicio = aresta.getInicio();
-                Vertice<T> verticeFim = aresta.getFim();
+            ArrayList<Aresta5<T>> arestasAssociadas =new ArrayList<>(vertice.getArestas());//aqui cria uma nova lista pra adc as arestas que vão ta associadas ao vertice
+            for(Aresta5<T> aresta :arestasAssociadas){
+                Vertice5<T> verticeInicio = aresta.getInicio();
+                Vertice5<T> verticeFim = aresta.getFim();
                 verticeInicio.getArestas().remove(aresta);//pra pegar o vertice que a aresta ta saindo
                 verticeFim.getArestas().remove(aresta);//e aqui o vertice que aresta ta chegando
 
@@ -51,11 +51,11 @@ public class Grafo<T> {
     }
 
     public void removerAresta(T inicio, T fim) {
-        Vertice<T> verticeInicio=buscarVertice(inicio);
-        Vertice<T> verticeFim = buscarVertice(fim);
+        Vertice5<T> verticeInicio=buscarVertice(inicio);
+        Vertice5<T> verticeFim = buscarVertice(fim);
 
         if(verticeInicio != null && verticeFim != null){
-            Aresta<T> aresta = buscarAresta(inicio, fim);
+            Aresta5<T> aresta = buscarAresta(inicio, fim);
             if(aresta != null){
                 arestas.remove(aresta);
                 verticeInicio.getArestas().remove(aresta);//remover a aresta que ta saindo do vertice de inicio
@@ -65,12 +65,12 @@ public class Grafo<T> {
         }
     }
 
-    public Aresta<T> buscarAresta(T inicio, T fim){
-        Vertice<T> verticeInicio=buscarVertice(inicio);
-        Vertice<T> verticeFim = buscarVertice(fim);
+    public Aresta5<T> buscarAresta(T inicio, T fim){
+        Vertice5<T> verticeInicio=buscarVertice(inicio);
+        Vertice5<T> verticeFim = buscarVertice(fim);
 
         if(verticeInicio != null && verticeFim != null ){
-            for(Aresta<T> aresta :arestas){
+            for(Aresta5<T> aresta :arestas){
                 if(aresta.getInicio().equals(verticeInicio) && aresta.getFim().equals(verticeFim)){
                     return aresta;
                 }
@@ -79,8 +79,8 @@ public class Grafo<T> {
         return null;
     }
 
-    private Vertice<T> buscarVertice(T dado) {
-        for (Vertice<T> vertice : vertices) {
+    private Vertice5<T> buscarVertice(T dado) {
+        for (Vertice5<T> vertice : vertices) {
             if (vertice.getDado().equals(dado)) {
                 return vertice;
             }
@@ -88,11 +88,11 @@ public class Grafo<T> {
         return null;
     }
 
-    public ArrayList<Vertice<T>> obterAdjacentes(T dado){
-        Vertice<T> vertice =buscarVertice(dado);
-        ArrayList<Vertice<T>> adjacentes =new ArrayList<>();
+    public ArrayList<Vertice5<T>> obterAdjacentes(T dado){
+        Vertice5<T> vertice =buscarVertice(dado);
+        ArrayList<Vertice5<T>> adjacentes =new ArrayList<>();
         if(vertice!= null){
-            for(Aresta<T> aresta : vertice.getArestas()){
+            for(Aresta5<T> aresta : vertice.getArestas()){
                 adjacentes.add(aresta.getFim());
             }
         }
@@ -104,21 +104,21 @@ public class Grafo<T> {
     public void ArvoreBoruvka(){}
 
     public void imprimir() {
-        for (Vertice<T> vertice : vertices) {
+        for (Vertice5<T> vertice : vertices) {
             System.out.print("Vértice " + vertice.getDado() + " -> ");
-            ArrayList<Vertice<T>> adjacentes = obterAdjacentes(vertice.getDado());
+            ArrayList<Vertice5<T>> adjacentes = obterAdjacentes(vertice.getDado());
             if (adjacentes.isEmpty()) {
                 System.out.print("Sem adjacentes");
             } else {
                 System.out.print("Adjacentes -> ");
-                for (Vertice<T> adjacente : adjacentes) {
+                for (Vertice5<T> adjacente : adjacentes) {
                     System.out.print(adjacente.getDado() + " ");
                 }
             }
             System.out.println();
         }
         System.out.println("\nArestas:");
-        for (Aresta<T> aresta : arestas) {
+        for (Aresta5<T> aresta : arestas) {
             System.out.println("Aresta de " + aresta.getInicio().getDado() + " para " + aresta.getFim().getDado() + " com peso " + aresta.getPeso());
         }
 

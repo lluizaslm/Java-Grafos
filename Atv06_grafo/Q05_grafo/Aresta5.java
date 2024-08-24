@@ -1,12 +1,12 @@
-package Q03_grafo;
+package Q05_grafo;
 
-public class Aresta <T>{
+public class Aresta5<T>{
     private Double peso;
-    private Vertice<T> inicio;
-    private Vertice<T> fim;
+    private Vertice5<T> inicio;
+    private Vertice5<T> fim;
 
 
-    public Aresta(Double peso, Vertice<T> inicio, Vertice<T> fim){
+    public Aresta5(Double peso, Vertice5<T> inicio, Vertice5<T> fim){
         this.peso = peso;
         this.inicio = inicio;
         this.fim = fim;
@@ -20,19 +20,19 @@ public class Aresta <T>{
         this.peso = peso;
     }
 
-    public Vertice<T> getInicio() {
+    public Vertice5<T> getInicio() {
         return inicio;
     }
 
-    public void setInicio(Vertice<T> inicio) {
+    public void setInicio(Vertice5<T> inicio) {
         this.inicio = inicio;
     }
 
-    public Vertice<T> getFim() {
+    public Vertice5<T> getFim() {
         return fim;
     }
 
-    public void setFim(Vertice<T> fim) {
+    public void setFim(Vertice5<T> fim) {
         this.fim = fim;
     }
 }
