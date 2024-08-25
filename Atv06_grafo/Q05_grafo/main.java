@@ -1,10 +1,26 @@
 package Q05_grafo;
 
+import java.io.IOException;
+
 public class main {
     public static void main(String[] args) {
         //ArvorePrimTeste01();
         //ArvoreKruskalTeste01();
-        ArvoreBoruvkaTeste01();
+        //ArvoreBoruvkaTeste01();
+        Grafo5<String> grafo = new Grafo5<>();
+        try{
+            grafo.carregarDeArquivo("Atv06_grafo/Arquivos/Q5_Arquivo.txt");
+
+            grafo.ArvorePrim();
+
+            grafo.ArvoreKruskal();
+
+            grafo.ArvoreBoruvka();
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
+        }
+
+
     }
 
     public static void ArvorePrimTeste01(){
