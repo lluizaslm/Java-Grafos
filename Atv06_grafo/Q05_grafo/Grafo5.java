@@ -171,7 +171,57 @@ public class Grafo5<T> {
         }
         System.out.println("Peso total da Arvore Kruskal: " + pesoTotal);
     }
-    public void ArvoreBoruvka(){}
+    public void ArvoreBoruvka(){
+        int numComponentes = vertices.size();
+        var uf = new UnionFind(vertices.size());
+        var resultado = new ArrayList<Aresta5<T>>();
+
+        while (numComponentes > 1){
+            //armazena a aresta mínima de cada componente
+            Aresta5<T>[] arestaMinima = new Aresta5[vertices.size()];
+            for (var aresta : arestas){
+                int inicio = vertices.indexOf(aresta.getInicio());
+                int fim = vertices.indexOf(aresta.getFim());
+
+                int componenteInicio = uf.find(inicio);
+                int componenteFim = uf.find(fim);
+
+                if (componenteInicio != componenteFim){
+                    if (arestaMinima[componenteInicio] == null
+                        || arestaMinima[componenteInicio].getPeso() > aresta.getPeso()){
+                        arestaMinima[componenteInicio] = aresta;
+                    }
+                    if (arestaMinima[componenteFim] == null
+                            || arestaMinima[componenteFim].getPeso() > aresta.getPeso()){
+                        arestaMinima[componenteFim] = aresta;
+                    }
+                }
+            }
+
+            for (var aresta : arestaMinima){
+                if (aresta != null){
+                    int inicio = vertices.indexOf(aresta.getInicio());
+                    int fim = vertices.indexOf(aresta.getFim());
+
+                    int componenteInicio = uf.find(inicio);
+                    int componenteFim = uf.find(fim);
+
+                    if (componenteInicio != componenteFim){
+                        resultado.add(aresta);
+                        uf.union(componenteInicio, componenteFim);
+                        numComponentes--;
+                    }
+                }
+            }
+        }
+
+        double pesoTotal = 0;
+        for (var aresta : resultado){
+            System.out.println("Aresta: " + aresta.getInicio().getDado() + " - " + aresta.getFim().getDado() + " com peso: " + aresta.getPeso());
+            pesoTotal += aresta.getPeso();
+        }
+        System.out.println("Peso total da Arvore Boruvka: " + pesoTotal);
+    }
 
     public void imprimir() {
         for (Vertice5<T> vertice : vertices) {
