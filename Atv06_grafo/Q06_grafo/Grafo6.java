@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Grafo6<T> {
@@ -180,7 +181,12 @@ public class Grafo6<T> {
     }
 
     private Aresta6<T> obterAresta(Vertice6<T> v1, Vertice6 v2){
-
+        for (Aresta6<T> aresta : arestas) {
+            if ((aresta.getInicio().equals(v1) && aresta.getFim().equals(v2)) ||
+                    (aresta.getInicio().equals(v2) && aresta.getFim().equals(v1))) {
+                return aresta;
+            }
+        }
         return null;
     }
 

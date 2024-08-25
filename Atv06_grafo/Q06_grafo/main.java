@@ -9,7 +9,7 @@ public class main {
         //ArvoreBoruvkaTeste01();
         Grafo6<String> grafo = new Grafo6<>();
         try{
-            grafo.carregarDeArquivo("Atv06_grafo/Arquivos/Q5_Arquivo.txt");
+            grafo.carregarDeArquivo("Atv06_grafo/Arquivos/Q6_Arquivo.txt");
 
             grafo.ArvorePrim();
 
