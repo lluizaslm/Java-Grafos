@@ -3,10 +3,7 @@ package Q06_grafo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Grafo6<T> {
     private ArrayList<Vertice6<T>> vertices;
@@ -169,25 +166,52 @@ public class Grafo6<T> {
         return resultado;
     }
 
-    private void DFS(Vertice6<T> vertice, ArrayList<Vertice6<T>> visitados) {
-        visitados.add(vertice);
+    private void DFS(ArrayList<Vertice6<T>> ordemVisita, Set<Vertice6<T>> visitado, Vertice6<T> v) {
+        visitado.add(v);
+        ordemVisita.add(v);
 
-        for (Aresta6<T> aresta : vertice.getArestas()) {
-            Vertice6<T> adjacente = aresta.getFim();//itera sobre todas as arestas de saída do vértice atual e vai chamar DFS para cada vértice adjacente que ainda não foi visitado.
-            if (!visitados.contains(adjacente)) {
-                DFS(adjacente, visitados);
+        for (var aresta : obterArestas(v)){
+            var vizinho = aresta.getInicio() == v ? aresta.getFim() : aresta.getInicio();
+            if (!visitado.contains(vizinho)) {
+                DFS(ordemVisita, visitado, vizinho);
             }
         }
     }
 
-    private Aresta6<T> obterAresta(Vertice6<T> v1, Vertice6 v2){
-        for (Aresta6<T> aresta : arestas) {
-            if ((aresta.getInicio().equals(v1) && aresta.getFim().equals(v2)) ||
-                    (aresta.getInicio().equals(v2) && aresta.getFim().equals(v1))) {
-                return aresta;
+    private ArrayList<Aresta6<T>> obterArestas(Vertice6<T> v){
+        ArrayList<Aresta6<T>> adj = new ArrayList<>();
+        for (var aresta : arestas){
+            if (aresta.getInicio().equals(v) || aresta.getFim().equals(v)) {
+                adj.add(aresta);
             }
         }
-        return null;
+        return adj;
+    }
+
+    public void TSP(){
+        var arvoreMinima = ArvorePrim();
+
+        var ordemVisita = new ArrayList<Vertice6<T>>();
+        Set<Vertice6<T>> visitado = new HashSet<>();
+        DFS(ordemVisita, visitado, vertices.get(0));
+
+        criarCriclo(ordemVisita);
+    }
+
+    private void criarCriclo(ArrayList<Vertice6<T>> ordemVisita){
+        double pesoTotal = 0;
+
+        for (int i = 0; i < ordemVisita.size(); i++) {
+            var atual = ordemVisita.get(i);
+            var proximo = ordemVisita.get((i+1) % ordemVisita.size());
+
+            var aresta = buscarAresta(atual.getDado(), proximo.getDado()) == null ?
+                    buscarAresta(proximo.getDado(), atual.getDado()) :
+                    buscarAresta(atual.getDado(), proximo.getDado());
+            System.out.println("Vértice " + atual.getDado() + " - " + proximo.getDado() + " com peso: " + aresta.getPeso());
+            pesoTotal += aresta.getPeso();
+        }
+        System.out.println("Peso total do ciclo: " + pesoTotal);
     }
 
     public void imprimir() {
