@@ -1,6 +1,10 @@
 package Q02_grafo;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class Grafo2<T> {
     private ArrayList<Vertice2<T>> vertices;
@@ -15,6 +19,32 @@ public class Grafo2<T> {
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
         this.tempo = 0;
+    }
+
+    public void carregarDeArquivo(String caminhoArquivo) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length == 2) {
+                T verticeInicio = (T) partes[0];
+                T verticeFim = (T) partes[1];
+
+                adicionarVerticeSeNaoExistir(verticeInicio);
+                adicionarVerticeSeNaoExistir(verticeFim);
+
+                adicionarAresta(1.0, verticeInicio, verticeFim);
+            }
+        }
+
+        reader.close();
+    }
+
+    private void adicionarVerticeSeNaoExistir(T dado) {
+        if (buscarVertice(dado) == null) {
+            adicionarVertice(dado);
+        }
     }
 
     // adicionar vértice
@@ -128,7 +158,7 @@ public class Grafo2<T> {
     }
 
     public void execucaoDfs(){
-        //reseta o tempos e status da visitacao antes de comecar
+        tempo = -1;//foi o jeito
         for(Vertice2<T> vertice: vertices){
             vertice.setVisitado(false);
             vertice.setTempoChegada(-1);//o -1 é pq o tempo nao inicializado ainda

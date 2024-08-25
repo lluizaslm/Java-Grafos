@@ -3,6 +3,9 @@ package Q04_grafo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Grafo4<T> {
     private ArrayList<Vertice<T>> vertices;
@@ -18,6 +21,33 @@ public class Grafo4<T> {
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
         this.direcionado = direcionado;
+    }
+
+    public void carregarDeArquivo(String caminhoArquivo) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length == 3) {
+                T verticeInicio = (T) partes[0];
+                T verticeFim = (T) partes[1];
+                Double peso = Double.parseDouble(partes[2]);
+
+                adicionarVerticeSeNaoExistir(verticeInicio);
+                adicionarVerticeSeNaoExistir(verticeFim);
+
+                adicionarAresta(peso, verticeInicio, verticeFim);
+            }
+        }
+
+        reader.close();
+    }
+
+    private void adicionarVerticeSeNaoExistir(T dado) {
+        if (buscarVertice(dado) == null) {
+            adicionarVertice(dado);
+        }
     }
 
     // adicionar vértice

@@ -1,21 +1,16 @@
 package Q01_grafo;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class main {
     public static void main(String[] args) {
-        Grafo<String> grafo = new Grafo<>();//usando string só pra testar
-        // adc vertices
-        grafo.adicionarVertice("A");
-        grafo.adicionarVertice("B");
-        grafo.adicionarVertice("C");
-        grafo.adicionarVertice("D");
+        Grafo<String> grafo = new Grafo<>();
 
-        // adc as arestas
-        grafo.adicionarAresta(1.0, "A", "B");
-        grafo.adicionarAresta(2.5, "A", "C");
-        grafo.adicionarAresta(1.5, "B", "D");
-        grafo.adicionarAresta(3.0, "C", "D");
+        try {
+            grafo.carregarDeArquivo("Atv06_grafo/Arquivos/Q1_Arquivo.txt");
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
+        }
 
         System.out.println("Grafo:");
         grafo.imprimir();
@@ -24,6 +19,5 @@ public class main {
 
         System.out.println("\nGrafo após remoções:");
         grafo.imprimir();
-
     }
 }

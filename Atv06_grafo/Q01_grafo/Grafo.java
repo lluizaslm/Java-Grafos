@@ -1,6 +1,9 @@
 package Q01_grafo;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Grafo<T> {
     private ArrayList<Vertice<T>> vertices;
@@ -18,6 +21,32 @@ public class Grafo<T> {
         this.direcionado = direcionado;
     }
 
+    public void carregarDeArquivo(String caminhoArquivo) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length == 3) {
+                T verticeInicio = (T) partes[0];
+                T verticeFim = (T) partes[1];
+                Double peso = Double.parseDouble(partes[2]);
+
+                adicionarVerticeSeNaoExistir(verticeInicio);
+                adicionarVerticeSeNaoExistir(verticeFim);
+
+                adicionarAresta(peso, verticeInicio, verticeFim);
+            }
+        }
+
+        reader.close();
+    }
+
+    private void adicionarVerticeSeNaoExistir(T dado) {
+        if (buscarVertice(dado) == null) {
+            adicionarVertice(dado);
+        }
+    }
     // adicionar vértice
     public void adicionarVertice(T dado) {
         Vertice<T> novoVertice = new Vertice<T>(dado);
