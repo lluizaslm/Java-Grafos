@@ -27,15 +27,14 @@ public class Grafo2<T> {
 
         while ((linha = reader.readLine()) != null) {
             String[] partes = linha.split(";");
-            if (partes.length == 3) {
+            if (partes.length == 2) {
                 T verticeInicio = (T) partes[0];
                 T verticeFim = (T) partes[1];
-                Double peso = Double.parseDouble(partes[2]);
 
                 adicionarVerticeSeNaoExistir(verticeInicio);
                 adicionarVerticeSeNaoExistir(verticeFim);
 
-                adicionarAresta(peso, verticeInicio, verticeFim);
+                adicionarAresta(1.0, verticeInicio, verticeFim);
             }
         }
 
@@ -159,7 +158,7 @@ public class Grafo2<T> {
     }
 
     public void execucaoDfs(){
-        //reseta o tempos e status da visitacao antes de comecar
+        tempo = -1;//foi o jeito
         for(Vertice2<T> vertice: vertices){
             vertice.setVisitado(false);
             vertice.setTempoChegada(-1);//o -1 é pq o tempo nao inicializado ainda
